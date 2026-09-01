@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>お母さま専用時計</title>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
+}
+body {
+  display: table;
+  text-align: center;
+}
+#wrap {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 3vh 4vw;
+}
+.period {
+  font-size: 9vw;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 2vh;
+}
+.clock {
+  font-size: 20vw;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin: 1vh 0 3vh;
+  font-variant-numeric: tabular-nums;
+}
+.date {
+  font-size: 6vw;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.message {
+  font-size: 5vw;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-top: 4vh;
+}
+.morning { background: #fff7d6; color: #2a2415; }
+.day     { background: #f7fbff; color: #172433; }
+.evening { background: #f4eadf; color: #2f261e; }
+.night   { background: #141821; color: #f5f7fa; }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="period" class="period">☀️ 朝です</div>
+  <div id="clock" class="clock">09:30</div>
+  <div id="date" class="date">9月2日 水曜日</div>
+  <div id="message" class="message">朝の薬を忘れずに</div>
+</div>
+
+<script>
+(function () {
+  var days = ["日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日"];
+
+  function pad(n) {
+    return n < 10 ? "0" + n : "" + n;
+  }
+
+  function render() {
+    var now = new Date();
+    var h = now.getHours();
+    var m = now.getMinutes();
+    var dow = now.getDay();
+
+    document.getElementById("clock").innerHTML = pad(h) + ":" + pad(m);
+    document.getElementById("date").innerHTML =
+      (now.getMonth() + 1) + "月" + now.getDate() + "日 " + days[dow];
+
+    var body = document.body;
+    var period = document.getElementById("period");
+    var message = document.getElementById("message");
+
+    body.className = "";
+
+    if (h >= 6 && h < 11) {
+      body.className = "morning";
+      period.innerHTML = "☀️ 朝です";
+
+      if (dow === 3) {
+        message.innerHTML = "10:00に訪問診療<br>＆ 薬を飲む時間";
+      } else {
+        message.innerHTML = "朝の薬を忘れずに";
+      }
+
+    } else if (h >= 11 && h < 16) {
+      body.className = "day";
+      period.innerHTML = "☀️ 昼です";
+      message.innerHTML = "お昼の時間です";
+    } else if (h >= 16 && h < 18) {
+      body.className = "evening";
+      period.innerHTML = "🌇 夕方です";
+      message.innerHTML = "夕方の時間です";
+    } else {
+      body.className = "night";
+      period.innerHTML = "🌙 夜です";
+      message.innerHTML = "夜の時間です<br>お部屋で静かに過ごしましょう";
+    }
+  }
+
+  render();
+  setInterval(render, 1000);
+})();
+</script>
+</body>
+</html>
