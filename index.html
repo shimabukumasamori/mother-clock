@@ -34,14 +34,20 @@ body {
   margin-bottom: 2vh;
 }
 .clock {
-  font-size: 20vw;
+font-size: 11vw;
   font-weight: 800;
   letter-spacing: 0.02em;
   line-height: 1;
   margin: 1vh 0 3vh;
   font-variant-numeric: tabular-nums;
 }
-.date {
+.weekday {
+  font-size: 20vw;
+  font-weight: 900;
+  line-height: 1;
+  margin: 2vh 0;
+}
+  .date {
   font-size: 6vw;
   font-weight: 600;
   line-height: 1.25;
@@ -62,7 +68,8 @@ body {
 <div id="wrap">
   <div id="period" class="period">☀️ 朝です</div>
   <div id="clock" class="clock">09:30</div>
-  <div id="date" class="date">9月2日 水曜日</div>
+  <div id="weekday" class="weekday">水曜日</div>
+<div id="date" class="date">9月2日</div>
   <div id="message" class="message">朝の薬を忘れずに</div>
 </div>
 
@@ -81,8 +88,9 @@ body {
     var dow = now.getDay();
 
     document.getElementById("clock").innerHTML = pad(h) + ":" + pad(m);
-    document.getElementById("date").innerHTML =
-      (now.getMonth() + 1) + "月" + now.getDate() + "日 " + days[dow];
+    document.getElementById("weekday").innerHTML = days[dow];
+document.getElementById("date").innerHTML =
+  (now.getMonth() + 1) + "月" + now.getDate() + "日";
 
     var body = document.body;
     var period = document.getElementById("period");
