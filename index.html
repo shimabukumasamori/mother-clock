@@ -123,7 +123,7 @@ document.getElementById("date").innerHTML =
       message.innerHTML = "夜の時間です<br>お部屋で静かに過ごしましょう";
     }
 
-    var showAppointment = h >= 9 && h < 17;
+    var showAppointment = h >= 8 && h < 17;
     if (showAppointment && dow === 2) {
       message.innerHTML = 'きょうは 14:00から<br><span class="appointment bath">おふろです 🛁</span>';
     } else if (showAppointment && dow === 5) {
