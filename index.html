@@ -60,10 +60,13 @@ font-size: 11vw;
   line-height: 1.35;
   margin-top: 4vh;
 }
-.morning { background: #fff7d6; color: #2a2415; }
-.day     { background: #f7fbff; color: #172433; }
-.evening { background: #f4eadf; color: #2f261e; }
-.night   { background: #141821; color: #f5f7fa; }
+.morning, .day { background: #fff; color: #172433; }
+.night { background: #141e35; color: #f5f7fa; }
+.appointment { font-weight: 800; }
+.bath { color: #1261A0; }
+.rehab { color: #237343; }
+.night .bath { color: #a6d8ff; }
+.night .rehab { color: #a9e8b9; }
 </style>
 </head>
 <body>
@@ -98,8 +101,6 @@ document.getElementById("date").innerHTML =
     var period = document.getElementById("period");
     var message = document.getElementById("message");
 
-    body.className = "";
-
     if (h >= 6 && h < 11) {
       body.className = "morning";
       period.innerHTML = "☀️ 朝です";
@@ -110,18 +111,22 @@ document.getElementById("date").innerHTML =
         message.innerHTML = "朝の薬を忘れずに";
       }
 
-    } else if (h >= 11 && h < 16) {
+    } else if (h >= 11 && h < 18) {
       body.className = "day";
       period.innerHTML = "☀️ 昼です";
-      message.innerHTML = "お昼の時間です";
-    } else if (h >= 16 && h < 18) {
-      body.className = "evening";
-      period.innerHTML = "🌇 夕方です";
-      message.innerHTML = "夕方の時間です<br>夜ご飯の準備をしましょう";
+      message.innerHTML = h < 16
+        ? "お昼の時間です"
+        : "夕方の時間です<br>夜ご飯の準備をしましょう";
     } else {
       body.className = "night";
       period.innerHTML = "🌙 夜です";
       message.innerHTML = "夜の時間です<br>お部屋で静かに過ごしましょう";
+    }
+
+    if (h >= 6 && dow === 2) {
+      message.innerHTML = 'きょうは 14:00から<br><span class="appointment bath">おふろです 🛁</span>';
+    } else if (h >= 6 && dow === 5) {
+      message.innerHTML = 'きょうは 13:00から<br><span class="appointment rehab">リハビリです 🚶</span>';
     }
   }
 
